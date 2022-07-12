@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  baseUrl: 'https://reddit-spring-clone.herokuapp.com.com/'
+
 };

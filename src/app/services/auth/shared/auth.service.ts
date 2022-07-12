@@ -6,11 +6,14 @@ import { LoginResponse } from 'src/app/components/auth/login/login-response.payl
 import { LocalStorageService } from 'ngx-webstorage';
 import { map, tap } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  baseUrl = environment.baseUrl;
 
   @Output() loggedIn: EventEmitter<boolean> = new EventEmitter();
   @Output() username: EventEmitter<string> = new EventEmitter();
@@ -26,11 +29,11 @@ export class AuthService {
   ) { }
 
   signup(signupRequestPayload: SignupRequestPayload): Observable<any> {
-    return this.httpClient.post('http://localhost:8080/api/auth/signup', signupRequestPayload, { responseType: 'text' });
+    return this.httpClient.post(this.baseUrl + 'api/auth/signup', signupRequestPayload, { responseType: 'text' });
   }
 
   login(loginRequestPayload: LoginRequestPayload): Observable<boolean> {
-    return this.httpClient.post<LoginResponse>('http://localhost:8080/api/auth/login', loginRequestPayload)
+    return this.httpClient.post<LoginResponse>(this.baseUrl + 'api/auth/login', loginRequestPayload)
       .pipe(map(data => {
         this.browserLocalStorage.store('authenticationToken', data.authenticationToken);
         this.browserLocalStorage.store('username', data.username);
