@@ -20,7 +20,6 @@ export class SubredditService {
   }
 
   createSubreddit(subredditModel: SubredditModel): Observable<SubredditModel> {
-    return this.httpClient.post<SubredditModel>(this.baseUrl + 'api/subreddit',
-      subredditModel);
+    return this.httpClient.post<SubredditModel>(this.baseUrl + 'api/subreddit', subredditModel);
   }
 }
